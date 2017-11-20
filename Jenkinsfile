@@ -13,11 +13,17 @@ pipeline {
         sh 'mvn clean package'
       }
     }
+    stage('Unit tests') {
+      steps {
+        sh 'mvn clean test'
+      }
+    }
   }
 
   post {
     always {
       archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+      junit 'target/surefire-reports/*.xml'
     }
   }
 }
