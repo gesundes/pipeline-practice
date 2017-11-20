@@ -13,25 +13,6 @@ pipeline {
         sh 'mvn clean package'
       }
     }
-    stage('Upload') {
-      steps {
-        nexusArtifactUploader(
-          artifacts: [
-            [artifactId: 'rectangle',
-             classifier: '',
-             file: 'target/rectangle-1.0-SNAPSHOT.jar',
-             type: 'jar']
-          ],
-          credentialsId: 'nexus',
-          groupId: 'org.podvesnoy.rectangle',
-          nexusUrl: '10.0.2.10:8081',
-          nexusVersion: 'nexus3',
-          protocol: 'http',
-          repository: 'maven-snapshots',
-          version: '1.0-SNAPSHOT'
-        )
-      }
-    }
   }
 
   post {
