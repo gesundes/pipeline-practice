@@ -72,7 +72,7 @@ pipeline {
           agent {
             docker {
               image 'openjdk:9-jre'
-              label 'master'
+              label 'centos'
             }
           }
           steps {
