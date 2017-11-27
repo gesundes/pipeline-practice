@@ -4,7 +4,7 @@ pipeline {
     maven 'Maven3'
   }
   options {
-    buildDiscarder(logRotator(numToKeepStr: '2', artifactNumToKeepStr: '1'))
+    buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
   }
 
   stages {
@@ -35,6 +35,7 @@ pipeline {
   }
 
   post {
+    agent { label 'master' }
     always {
       archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
       junit 'target/surefire-reports/*.xml'
