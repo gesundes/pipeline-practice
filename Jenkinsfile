@@ -42,9 +42,6 @@ pipeline {
       }
     }
     stage('Functional testing') {
-      when {
-        branch 'master'
-      }
       failFast true
       parallel {
         stage('java 7') {
