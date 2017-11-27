@@ -31,14 +31,13 @@ pipeline {
         nexusArtifactUploader artifacts: [[artifactId: 'rectangle', classifier: '', file: 'target/rectangle-1.0-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'org.podvesnoy.rectangle', nexusUrl: '10.0.2.10:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-snapshots', version: '1.0-SNAPSHOT'
       }
     }
-    
-  }
-  stage('post') {
-    agent { label 'master' }
-    post {
-      always {
-        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-        junit 'target/surefire-reports/*.xml'
+    stage('post') {
+      agent { label 'master' }
+      post {
+        always {
+          archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+          junit 'target/surefire-reports/*.xml'
+        }
       }
     }
   }
