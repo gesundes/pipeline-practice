@@ -3,7 +3,6 @@ pipeline {
   tools {
     maven 'Maven3'
   }
-  tool name: 'docker-latest', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
   }
