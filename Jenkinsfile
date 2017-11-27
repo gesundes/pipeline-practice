@@ -2,7 +2,6 @@ pipeline {
   agent none
   tools {
     maven 'Maven3'
-    docker 'docker-latest'
   }
   options {
     buildDiscarder(logRotator(numToKeepStr: '2', artifactNumToKeepStr: '1'))
