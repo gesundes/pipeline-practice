@@ -6,6 +6,9 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
   }
+  environment {
+    MAJOR_VERSION = 1
+  }
 
   stages {
     stage('Unit tests') {
@@ -92,10 +95,12 @@ pipeline {
       steps {
         sh 'git stash'
         sh 'git checkout development'
-        sh 'git pull origin'
+        sh 'git pull origin development'
         sh 'git checkout master'
         sh 'git merge development'
         sh 'git push origin master'
+        sh "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
+        sh "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
       }
     }
   }
