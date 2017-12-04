@@ -81,5 +81,21 @@ pipeline {
         nexusArtifactUploader artifacts: [[artifactId: 'rectangle', classifier: '', file: 'rectangle-1.0-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'org.podvesnoy.rectangle', nexusUrl: '10.0.2.10:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: "1.${env.BUILD_NUMBER}"
       }
     }
+    stage('Promote code to master') {
+      agent {
+        label 'master'
+      }
+      when {
+        branch 'development'
+      }
+      steps {
+        sh 'git stash'
+        sh 'git checkout development'
+        sh 'git pull origin'
+        sh 'git checkout master'
+        sh 'git merge development'
+        sh 'git push origin master'
+      }
+    }
   }
 }
