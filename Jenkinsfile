@@ -107,6 +107,10 @@ pipeline {
   post {
     failure {
       emailext(
+        subject: "Something goes wrong. ${env.BUILD_NUMBER}",
+        body: """
+         checkout ${env.BUILD_URL}
+        """,
         to: "gesundes@gmail.com"
       )
     }
