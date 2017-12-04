@@ -68,18 +68,6 @@ pipeline {
             sh "java -jar rectangle-1.0-SNAPSHOT.jar 3 4"
           }
         }
-        stage('java 9') {
-          agent {
-            docker {
-              image 'openjdk:9-jre'
-              label 'centos'
-            }
-          }
-          steps {
-            sh "./scripts/artidown.sh org.podvesnoy.rectangle rectangle 1.0-SNAPSHOT"
-            sh "java -jar rectangle-1.0-SNAPSHOT.jar 2 6"
-          }
-        }
         stage('Upload') {
           agent {
             label 'master'
