@@ -80,6 +80,14 @@ pipeline {
             sh "java -jar rectangle-1.0-SNAPSHOT.jar 2 6"
           }
         }
+        stage('Upload') {
+          agent {
+            label 'master'
+          }
+          steps {
+            nexusArtifactUploader artifacts: [[artifactId: 'rectangle', classifier: '', file: 'target/rectangle-1.0-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'org.podvesnoy.rectangle', nexusUrl: '10.0.2.10:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.${env.BUILD_NUMBER}'
+          }
+        }
       }
     }
   }
