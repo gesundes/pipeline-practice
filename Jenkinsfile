@@ -52,8 +52,8 @@ pipeline {
             }
           }
           steps {
-            sh "wget http://10.0.2.10:8081/repository/maven-snapshots/org/podvesnoy/rectangle/rectangle/1.0-SNAPSHOT/rectangle-1.0-20171127.170038-5.jar"
-            sh "java -jar rectangle-1.0-20171127.170038-5.jar 2 4"
+            sh "./scripts/artidown.sh org.podvesnoy.rectangle rectangle 1.0-SNAPSHOT"
+            sh "java -jar rectangle-1.0-SNAPSHOT.jar 2 4"
           }
         }
         stage('java 8') {
@@ -64,8 +64,8 @@ pipeline {
             }
           }
           steps {
-            sh "wget http://10.0.2.10:8081/repository/maven-snapshots/org/podvesnoy/rectangle/rectangle/1.0-SNAPSHOT/rectangle-1.0-20171127.170038-5.jar"
-            sh "java -jar rectangle-1.0-20171127.170038-5.jar 3 5"
+            sh "./scripts/artidown.sh org.podvesnoy.rectangle rectangle 1.0-SNAPSHOT"
+            sh "java -jar rectangle-1.0-SNAPSHOT.jar 3 4"
           }
         }
         stage('java 9') {
@@ -76,8 +76,8 @@ pipeline {
             }
           }
           steps {
-            sh "wget http://10.0.2.10:8081/repository/maven-snapshots/org/podvesnoy/rectangle/rectangle/1.0-SNAPSHOT/rectangle-1.0-20171127.170038-5.jar"
-            sh "java -jar rectangle-1.0-20171127.170038-5.jar 6 40"
+            sh "./scripts/artidown.sh org.podvesnoy.rectangle rectangle 1.0-SNAPSHOT"
+            sh "java -jar rectangle-1.0-SNAPSHOT.jar 2 6"
           }
         }
       }
