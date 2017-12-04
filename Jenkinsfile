@@ -104,4 +104,11 @@ pipeline {
       }
     }
   }
+  post {
+    failure {
+      emailext(
+        to: "gesundes@gmail.com"
+      )
+    }
+  }
 }
