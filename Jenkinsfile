@@ -78,6 +78,7 @@ pipeline {
         branch 'master'
       }
       steps {
+        sh "./scripts/artidown.sh org.podvesnoy.rectangle rectangle 1.0-SNAPSHOT"
         nexusArtifactUploader artifacts: [[artifactId: 'rectangle', classifier: '', file: 'rectangle-1.0-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'org.podvesnoy.rectangle', nexusUrl: '10.0.2.10:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: "1.${env.BUILD_NUMBER}"
       }
     }
