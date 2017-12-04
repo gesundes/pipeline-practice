@@ -52,8 +52,8 @@ pipeline {
             }
           }
           steps {
-            sh "wget http://10.0.2.10:8081/repository/maven-snapshots/org/podvesnoy/rectangle/rectangle/1.0-SNAPSHOT/rectangle-1.0-20171127.170038-5.jar"
-            sh "java -jar rectangle-1.0-20171127.170038-5.jar 2 4"
+            sh "./scripts/artidown.sh org.podvesnoy.rectangle rectangle 1.0-SNAPSHOT"
+            sh "java -jar rectangle-1.0-SNAPSHOT.jar 2 4"
           }
         }
         stage('java 8') {
@@ -64,22 +64,21 @@ pipeline {
             }
           }
           steps {
-            sh "wget http://10.0.2.10:8081/repository/maven-snapshots/org/podvesnoy/rectangle/rectangle/1.0-SNAPSHOT/rectangle-1.0-20171127.170038-5.jar"
-            sh "java -jar rectangle-1.0-20171127.170038-5.jar 3 5"
+            sh "./scripts/artidown.sh org.podvesnoy.rectangle rectangle 1.0-SNAPSHOT"
+            sh "java -jar rectangle-1.0-SNAPSHOT.jar 3 4"
           }
         }
-        stage('java 9') {
-          agent {
-            docker {
-              image 'openjdk:9-jre'
-              label 'centos'
-            }
-          }
-          steps {
-            sh "wget http://10.0.2.10:8081/repository/maven-snapshots/org/podvesnoy/rectangle/rectangle/1.0-SNAPSHOT/rectangle-1.0-20171127.170038-5.jar"
-            sh "java -jar rectangle-1.0-20171127.170038-5.jar 6 40"
-          }
-        }
+      }
+    }
+    stage('Upload to release') {
+      agent {
+        label 'master'
+      }
+      when {
+        branch 'master'
+      }
+      steps {
+        nexusArtifactUploader artifacts: [[artifactId: 'rectangle', classifier: '', file: 'rectangle-1.0-SNAPSHOT.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'org.podvesnoy.rectangle', nexusUrl: '10.0.2.10:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: "1.${env.BUILD_NUMBER}"
       }
     }
   }
