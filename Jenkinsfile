@@ -70,7 +70,7 @@ pipeline {
         }
       }
     }
-    stage('Upload') {
+    stage('Upload to release') {
       agent {
         label 'master'
       }
