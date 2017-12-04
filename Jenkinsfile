@@ -96,7 +96,7 @@ pipeline {
         sh 'git stash'
         sh 'git checkout development'
         sh 'git pull origin development'
-        sh 'git checkout master'
+        sh "git checkout master"
         sh 'git merge development'
         sh 'git push origin master'
         sh "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
